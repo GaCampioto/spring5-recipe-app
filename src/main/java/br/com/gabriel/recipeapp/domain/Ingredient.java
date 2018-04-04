@@ -2,11 +2,13 @@ package br.com.gabriel.recipeapp.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Entity
 @Data
 @EqualsAndHashCode(exclude = {"recipe", "uom"})
 public class Ingredient {
@@ -19,15 +21,11 @@ public class Ingredient {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private String id;
     private String description;
     private BigDecimal amount;
-
-    @ManyToOne(targetEntity = Recipe.class)
     private Recipe recipe;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @DBRef
     private UnitOfMeasure uom;
 }
