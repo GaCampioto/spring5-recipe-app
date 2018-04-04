@@ -8,23 +8,21 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Data
 @EqualsAndHashCode(exclude = {"recipe", "uom"})
 public class Ingredient {
 
-    public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom, Recipe recipe) {
+    public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom) {
         this.description = description;
         this.amount = amount;
         this.uom = uom;
-        this.recipe = recipe;
     }
 
-    @Id
-    private String id;
+    private String id = UUID.randomUUID().toString();;
     private String description;
     private BigDecimal amount;
-    private Recipe recipe;
 
     @DBRef
     private UnitOfMeasure uom;
