@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class IndexController {
@@ -19,7 +20,7 @@ public class IndexController {
 
     @RequestMapping({"", "/", "/index"})
     public String getIndex(Model model) {
-        List<Recipe> allRecipes = recipeService.findAllRecipes();
+        List<Recipe> allRecipes = recipeService.findAllRecipes().collectList().block();
         model.addAttribute("recipes", allRecipes);
         return "index";
     }

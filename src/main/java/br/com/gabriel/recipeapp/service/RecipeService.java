@@ -1,21 +1,22 @@
 package br.com.gabriel.recipeapp.service;
 
 import br.com.gabriel.recipeapp.domain.Recipe;
-import br.com.gabriel.recipeapp.repository.RecipeRepository;
+import br.com.gabriel.recipeapp.repository.reactive.RecipeReactiveRepository;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
 @Service
 public class RecipeService {
 
-    private RecipeRepository recipeRepository;
+    private RecipeReactiveRepository recipeReactiveRepository;
 
-    public RecipeService(RecipeRepository recipeRepository) {
-        this.recipeRepository = recipeRepository;
+    public RecipeService(RecipeReactiveRepository recipeReactiveRepository) {
+        this.recipeReactiveRepository = recipeReactiveRepository;
     }
 
-    public List<Recipe> findAllRecipes() {
-        return recipeRepository.findAll();
+    public Flux<Recipe> findAllRecipes() {
+        return recipeReactiveRepository.findAll();
     }
 }
